@@ -15,9 +15,9 @@ class leaderboardController extends Controller
 {
     public function send_time(Request $request)
     {
-        if(!tournament::where('game_id',$request->game_id)->exists())
+        if(!tournament::where('id',$request->tournament_id)->exists())
         {
-            return response()->json(['message'=>"Tournament is not Created yet for this game"],200);
+            return response()->json(['message'=>"Tournament is not Created yet for this ID"],200);
         }
 //        if(!gameuser::where("user_id",auth('api')->user()->id)->where('game_id',$request->game_id)->exists())
 //        {
@@ -25,7 +25,7 @@ class leaderboardController extends Controller
 //        }
           $obj=new listeduser();
           $obj->time=$request->time;
-          $obj->game_id=$request->game_id;
+          $obj->tournament_id=$request->game_id;
           $obj->save();
           return response()->json(['message'=>"Time Successfully Saved"],200);
 
@@ -34,15 +34,16 @@ class leaderboardController extends Controller
     public function leaderboard(Request $request)
     {
         //ssdasd
-        if(!tournament::where('game_id',$request->game_id)->exists())
+        if(!tournament::where('id',$request->tournament_id)->exists())
         {
-            return response()->json(['message'=>"Tournament is not Created yet for this game"],200);
+            return response()->json(['message'=>"Tournament is not Created yet for this ID"],200);
         }
-        $t=tournament::where('game_id',$request->game_id)->first();
+        $t=tournament::where('id',$request->tournament_id)->first();
         $endDate=Carbon::parse($t->start_date)->addDays($t->duration);
-        $users=listeduser::where('game_id',$request->game_id)->orderBy('time','ASC')->with('user')->get();
-
-        return response()->json(['users'=>$users,'game_id'=>$request->game_id,'tournament'=>$t,'endDate'=>$endDate],200);
+        $users=listeduser::where('tournament_id',$request->tournament_id)->orderBy('time','ASC')->with('user')->get();
+        $winners=listeduser::where('tournament_id',$request->tournament_id)->orderBy('time','ASC')->with('user')->get();
+        $winners=$winners->unique('user_id');
+        return response()->json(['users'=>$users,'game_id'=>$request->game_id,'tournament'=>$t,'endDate'=>$endDate,'winners'=>$winners],200);
 
     }
 }

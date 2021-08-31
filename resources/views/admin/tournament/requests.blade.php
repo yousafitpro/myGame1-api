@@ -2,7 +2,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3>All Tournaments</h3>
+            <h3>All Requests</h3>
         </div>
         <div class="card-body">
             <div class="row">

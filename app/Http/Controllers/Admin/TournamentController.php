@@ -8,6 +8,7 @@ use App\Models\listeduser;
 use App\Models\lottery;
 use App\Models\tournament;
 use App\Models\tournamentrequest;
+use App\Models\tournamentuser;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -58,6 +59,7 @@ class TournamentController extends Controller
         $tournament->w2_percent=$request->w2_percent;
         $tournament->w3_percent=$request->w3_percent;
         $tournament->entry_fee=$request->entry_fee;
+        $tournament->total_users=$request->total_users;
         if($tournament->save())
         {
             Session::put('success-msg','Tournament Successfully Added');
@@ -127,6 +129,7 @@ class TournamentController extends Controller
         $tournament->w2_percent=$request->w2_percent;
         $tournament->w3_percent=$request->w3_percent;
         $tournament->entry_fee=$request->entry_fee;
+        $tournament->total_users=$request->total_users;
         if($tournament->save())
         {
             Session::put('success-msg',"Tournament Successfully Updated");
@@ -200,9 +203,21 @@ class TournamentController extends Controller
         }
         return \redirect(route('admin.tournament.getAll'));
     }
+    public function hide(Request $request,$id)
+    {
+        $t=tournament::find($id);
+        $t->status='3';
+        if($t->save())
+        {
+            Session::put('success-msg',"Tournament Successfully Stoped");
+        }
+        return \redirect(route('admin.tournament.getAll'));
+    }
     public function requestReject(Request $request,$id)
     {
+
      $r=tournamentrequest::find($id);
+        tournamentuser::where('user_id',$r->user_id)->where('tournament_id',$r->tournament_id)->delete();
      $r->status='0';
      if($r->save())
      {
@@ -214,8 +229,15 @@ class TournamentController extends Controller
     {
         $r=tournamentrequest::find($id);
         $r->status='1';
+        $tu=new tournamentuser();
+        $tu->user_id=$r->user_id;
+        $tu->tournament_id=$r->tournament_id;
         if($r->save())
         {
+            if(!tournamentuser::where('user_id',$r->user_id)->where('tournament_id',$r->tournament_id)->exists())
+            {
+                $tu->save();
+            }
             Session::put('success-msg',"Request Successfully Approved");
         }
         return \redirect()->back();

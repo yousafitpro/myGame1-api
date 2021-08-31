@@ -21,12 +21,13 @@ class CreateTournamentsTable extends Migration
             $table->string('start_date');
             $table->string('duration');
             $table->string('entry_fee');
+            $table->string('total_users');
             $table->string('admin_percent');
             $table->string('w1_percent');
             $table->string('w2_percent');
             $table->string('w3_percent');
             $table->string('collected_amount')->nullable()->default('0');
-            $table->string('status')->nullable()->default('0');
+            $table->string('status')->nullable()->default('2');
             $table->timestamps();
         });
     }

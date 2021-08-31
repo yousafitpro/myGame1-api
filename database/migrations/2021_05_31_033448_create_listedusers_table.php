@@ -16,7 +16,7 @@ class CreateListedusersTable extends Migration
         Schema::create('listedusers', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
-            $table->bigInteger('game_id');
+            $table->bigInteger('tournament_id');
             $table->string('time');
             $table->timestamps();
         });

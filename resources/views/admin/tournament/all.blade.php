@@ -35,7 +35,13 @@
                     <td style="color: red; font-weight: bold">Stoped</td>
                 @endif
                 @if($tournament->status=='2')
-                    <td style="color: yellow; font-weight: bold">Paused</td>
+                    <td style="color:darkorange; font-weight: bold">Paused</td>
+                @endif
+                @if($tournament->status=='3')
+                    <td style="color: black; font-weight: bold">Hiden</td>
+                @endif
+                @if($tournament->status=='4')
+                    <td style="color: green; font-weight: bold">Completed</td>
                 @endif
                 <td>{{$tournament->start_date}}</td>
 
@@ -55,7 +61,10 @@
                                     <li><a href="{{route('admin.tournament.start',$tournament->id)}}">Resume</a></li>
                                     <li><a href="{{route('admin.tournament.stop',$tournament->id)}}">Stop</a></li>
                                 @endif
+                                <li><a href="{{route('admin.tournament.pause',$tournament->id)}}">Show</a></li>
+                                <li><a href="{{route('admin.tournament.hide',$tournament->id)}}">Hide</a></li>
                                 <li><a href="{{route('admin.tournament.getOne',$tournament->id)}}">Edit/View</a></li>
+                                <li><a href="{{route('admin.leaderboard.show',$tournament->id)}}" >Leaderboard</a></li>
                                 <li><a href="{{route('admin.tournament.requests',$tournament->id)}}">Requests</a></li>
 
                                 <li><a href="#" data-toggle="modal" data-target="#deleteModel">Delete</a></li>

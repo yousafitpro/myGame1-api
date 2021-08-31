@@ -39,7 +39,7 @@ class GameController extends Controller
         {
             Session::put('success-msg','Game Successfully Added');
         }
-        return redirect()->back();
+        return redirect(route('admin.game.getAll'));
     }
     public function getOne($id)
     {

@@ -107,6 +107,14 @@
                         <input  required class="form-control" value="{{old('admin_percent')}}" name="entry_fee" type="number">
 
                     </div>
+                    <div class="col-md-4">
+                        <label >
+                           Total Users
+                        </label>
+                        <br>
+                        <input  required class="form-control" value="{{old('total_users')}}" name="total_users" type="number">
+
+                    </div>
                 </div>
                 <br>
                 <div class="row">

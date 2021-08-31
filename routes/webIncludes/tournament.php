@@ -8,6 +8,7 @@ Route::prefix('admin/tournament/')
         Route::get('deleteOne/{id}',[App\Http\Controllers\Admin\TournamentController::class, 'deleteOne'])->name('admin.tournament.deleteOne');
         Route::post('update/{id}',[App\Http\Controllers\Admin\TournamentController::class, 'update'])->name('admin.tournament.update');
         Route::any('start/{id}',[App\Http\Controllers\Admin\TournamentController::class, 'start'])->name('admin.tournament.start');
+        Route::any('hide/{id}',[App\Http\Controllers\Admin\TournamentController::class, 'hide'])->name('admin.tournament.hide');
         Route::any('pause/{id}',[App\Http\Controllers\Admin\TournamentController::class, 'pause'])->name('admin.tournament.pause');
         Route::any('stop/{id}',[App\Http\Controllers\Admin\TournamentController::class, 'stop'])->name('admin.tournament.stop');
         Route::get('getAll',[App\Http\Controllers\Admin\TournamentController::class, 'getALL'])->name('admin.tournament.getAll');

@@ -6,7 +6,7 @@
             <div class="col-md-8">
                <div class="card">
                    <div class="card-header">
-                       <i class="fa fa-trophy fa-5x"></i> <span style="font-size: 30px">Players</span>
+                       <i class="fa fa-users fa-5x"></i> <span style="font-size: 30px">Players</span>
                    </div>
                    <div class="card-body">
                        <table class="table  table-bordered table-hover dataTables-only" >
@@ -23,46 +23,16 @@
                            <tbody>
 
                            @foreach($users as $user)
-                               <tr class="center">
-                                   <td>{{$loop->index+1}}</td>
-                                   <td>{{$user->user->fname." ".$user->user->lname}}</td>
-                                   <td>{{$user->user->email}}</td>
-                                   <td>{{$user->time}}</td>
 
-                                   {{--                            <td width="50px">--}}
-                                   {{--                                <div class="dropdown dropdown-menu-bottom">--}}
-                                   {{--                                    <i class="fa fa-cogs" data-toggle="dropdown"></i>--}}
+                                  <tr class="center">
+                                      <td>{{$loop->index+1}}</td>
+                                      <td>{{$user->user->fname." ".$user->user->lname}}</td>
+                                      <td>{{$user->user->email}}</td>
+                                      <td>{{$user->time}}</td>
 
-                                   {{--                                    <ul class="dropdown-menu">--}}
-                                   {{--                                        <li><a href="#" data-toggle="modal" data-target="#deleteModel">Delete</a></li>--}}
-                                   {{--                                        <li><a href="{{route('admin.user.getOne',$user->id)}}">Edit/View</a></li>--}}
-                                   {{--                                        <li><a href="{{route('admin.user.active',$user->id)}}">Active</a></li>--}}
-                                   {{--                                        <li><a href="{{route('admin.user.unActive',$user->id)}}">Deactive</a></li>--}}
-                                   {{--                                    </ul>--}}
-                                   {{--                                </div>--}}
-                                   {{--                            </td>--}}
-                               </tr>
-                               {{--            Delete Moel--}}
-                               {{--                        <div class="modal fade" id="deleteModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">--}}
-                               {{--                            <div class="modal-dialog modal-dialog-centered" role="document">--}}
-                               {{--                                <div class="modal-content">--}}
-                               {{--                                    <div class="modal-header">--}}
-                               {{--                                        <h5 class="modal-title" id="exampleModalLongTitle">Alert</h5>--}}
-                               {{--                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
-                               {{--                                            <span aria-hidden="true">&times;</span>--}}
-                               {{--                                        </button>--}}
-                               {{--                                    </div>--}}
-                               {{--                                    <div class="modal-body">--}}
-                               {{--                                        <h3>Are you want to Delete this ?</h3>--}}
-                               {{--                                    </div>--}}
-                               {{--                                    <div class="modal-footer">--}}
-                               {{--                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>--}}
-                               {{--                                        <a href="{{route('admin.user.deleteOne',$user->id)}}"> <button type="button" class="btn btn-primary">Yes</button></a>--}}
-                               {{--                                    </div>--}}
-                               {{--                                </div>--}}
-                               {{--                            </div>--}}
-                               {{--                        </div>--}}
-                               {{--                   --}}
+                                  </tr>
+
+
                            @endforeach
                            </tbody>
                            <tfoot>
@@ -76,6 +46,48 @@
                        </table>
                    </div>
                </div>
+                <br>
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fa fa-trophy fa-5x"></i> <span style="font-size: 30px">Winners</span>
+                    </div>
+                    <div class="card-body">
+                        <table class="table  table-bordered table-hover dataTables-only" >
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Time Taken</th>
+
+                                {{--                        <th>Actions</th>--}}
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            @foreach($winners as $user)
+                                @if($loop->index<3)
+                                <tr class="center">
+                                    <td>{{$loop->index+1}}</td>
+                                    <td>{{$user->user->fname." ".$user->user->lname}}</td>
+                                    <td>{{$user->user->email}}</td>
+                                    <td>{{$user->time}}</td>
+
+                                </tr>
+                                @endif
+                            @endforeach
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th>Position</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Time Taken</th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
             </div>
             <div class="col-md-4">
                 <div class="card">
@@ -86,10 +98,13 @@
                     </div>
                     <div class="card-body">
                         <br>
-<div style="width: 100%" class="d-flex align-items-center justify-content-center">
-    <span style="font-size: 20px">Amount:</span><label style="font-size: 15px; margin-left: 10px">{{$tournament->collected_amount}}</label>
 
-</div>
+                            <div style="width: 100%" class="d-flex align-items-center justify-content-center">
+                                <span style="font-size: 20px">Amount:</span><label style="font-size: 15px; margin-left: 10px">{{$tournament->collected_amount}}</label>
+
+                            </div>
+
+
                     </div>
                 </div>
                 <br>
@@ -111,8 +126,9 @@
                             @csrf
                             <div class="col-md-12">
                                 <br>
-
+                                @if($tournament->status!='4')
                                 <button  type="submit" class="form-control btn btn-primary" >Distribute Amount</button>
+                                @endif
                             </div>
                         </form>
 
