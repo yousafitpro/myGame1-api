@@ -1,0 +1,9 @@
+On set of numbers right?
+
+12-15-25-36-54-71
+
+12-15-25 ---> 50% to 65% that it will have a winning
+25-36. ---> 10% to 20%
+36-54-71 ---> 50% to 65%
+
+A match of 4 or more ---> 80%
