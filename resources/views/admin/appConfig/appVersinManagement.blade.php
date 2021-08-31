@@ -7,7 +7,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12">
-                    <a href="#" data-toggle="modal" data-target="#deleteModel">Delete</a>
+
                     <a href="#" data-toggle="modal" data-target="#addModel">  <button class="btn btn-primary float-right"> Add New</button></a>
                 </div>
             </div>
