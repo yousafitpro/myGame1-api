@@ -86,7 +86,7 @@ class leaderboardController extends Controller
            $t->status='4';
         $t->save();
         Session::put("success-msg","Amount Distributed Successfully");
-        return redirect(route('admin.game.getAll'));
+        return redirect(route('admin.tournament.getAll'));
     }
     public function wallet_amount($user_id,$amount)
     {

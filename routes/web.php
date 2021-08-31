@@ -50,3 +50,5 @@ include('webIncludes/lottery.php');
 include('webIncludes/leaderboard.php');
 // game users
 include ("webIncludes/listeduser.php");
+// app
+include ("webIncludes/appConfig.php");
