@@ -18,6 +18,7 @@ class CreateTournamentrequestsTable extends Migration
             $table->bigInteger('user_id');
             $table->bigInteger('tournament_id');
             $table->string('payment_id');
+            $table->string('status')->nullable()->default('2');
             $table->string('paymentmethod_id');
             $table->timestamps();
         });

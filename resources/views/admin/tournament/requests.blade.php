@@ -7,7 +7,11 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12">
-                    <a href="{{route('admin.tournament.add')}}">  <button class="btn btn-primary float-right"> Add New</button></a>
+                    <a href="{{route('admin.tournament.getAll')}}">  <button class="btn btn-primary "> Go Back</button></a>
+                    <a class="ml-2" href="{{route('admin.tournament.requests',$id)}}">  <button class="btn btn-primary ">All Requests</button></a>
+                    <a class="ml-2" href="{{route('admin.tournament.requests',$id).'?rejected=1'}}">  <button class="btn btn-primary "> Rejected Requests</button></a>
+                    <a class="ml-2" href="{{route('admin.tournament.requests',$id).'?approved=1'}}">  <button class="btn btn-primary ">Approved Requests</button></a>
+
                 </div>
             </div>
             <br>
@@ -15,50 +19,44 @@
         <table class="table  table-bordered table-hover dataTables-example" >
             <thead>
             <tr>
-                <th>Name</th>
-                <th>Game</th>
+                <th>User</th>
+                <th>Payment ID</th>
+                <th>Payment Method</th>
+                <th>Recieved Date</th>
                 <th>Status</th>
-                <th>Start Date</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
 
-            @foreach($tournaments as $tournament)
+            @foreach($list as $item)
             <tr class="center">
-                <td>{{$tournament->name}}</td>
-                <td>{{$tournament->game->name}}</td>
-                @if($tournament->status=='1')
-                    <td style="color: green; font-weight: bold">Started</td>
-                @endif
-                @if($tournament->status=='0')
-                    <td style="color: red; font-weight: bold">Stoped</td>
-                @endif
-                @if($tournament->status=='2')
-                    <td style="color: yellow; font-weight: bold">Paused</td>
-                @endif
-                <td>{{$tournament->start_date}}</td>
-
+                <td>{{$item->user->fname." ".$item->user->lname}}
+                    <br> <label style="color: darkred; font-weight: bold">Email:{{$item->user->email}}</label>
+                    <br> <label style="color:darkgoldenrod; font-weight: bold">Phone:{{$item->user->phone}}</label>
+                </td>
+                <td>{{$item->payment_id}}</td>
+                <td>{{$item->paymentmethod_id}}</td>
+                <td>{{\Carbon\Carbon::parse($item->created_at)->diffForHumans()}}<br>({{$item->created_at}})</td>
+                <td>
+                    @if($item->status=='1')
+                        <label style="font-weight: bold; color: green">Approved</label>
+                        @endif
+                        @if($item->status=='0')
+                            <label style="font-weight: bold; color:red">Rejected</label>
+                        @endif
+                        @if($item->status=='2')
+                            <label style="font-weight: bold; color: yellowgreen">Pending</label>
+                        @endif
+                </td>
                 <td width="50px">
                     <div class="dropdown dropdown-menu-bottom">
                         <i class="fa fa-cogs" data-toggle="dropdown"></i>
 
                         <ul class="dropdown-menu">
-                            @if($tournament->status=='0' )
-                                <li><a href="{{route('admin.tournament.start',$tournament->id)}}">Start</a></li>
-                            @endif
-                            @if($tournament->status=='1')
-                                <li><a href="{{route('admin.tournament.pause',$tournament->id)}}">Pause</a></li>
-                                    <li><a href="{{route('admin.tournament.stop',$tournament->id)}}">Stop</a></li>
-                            @endif
-                                @if($tournament->status=='2')
-                                    <li><a href="{{route('admin.tournament.start',$tournament->id)}}">Resume</a></li>
-                                    <li><a href="{{route('admin.tournament.stop',$tournament->id)}}">Stop</a></li>
-                                @endif
-                                <li><a href="{{route('admin.tournament.getOne',$tournament->id)}}">Edit/View</a></li>
-                                <li><a href="{{route('admin.tournament.requests',$tournament->id)}}">Requests</a></li>
 
-                                <li><a href="#" data-toggle="modal" data-target="#deleteModel">Delete</a></li>
+                                <li><a href="{{route('admin.tournament.request.approve',$item->id)}}">Approve</a></li>
+                                <li><a href="{{route('admin.tournament.request.reject',$item->id)}}">Reject</a></li>
 
                         </ul>
                     </div>
@@ -79,7 +77,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                           <a href="{{route('admin.tournament.deleteOne',$tournament->id)}}"> <button type="button" class="btn btn-primary">Yes</button></a>
+                           <a href="{{route('admin.tournament.deleteOne',$item->id)}}"> <button type="button" class="btn btn-primary">Yes</button></a>
                         </div>
                     </div>
                 </div>
@@ -88,11 +86,11 @@
             </tbody>
             <tfoot>
             <tr>
-                <th>Name</th>
-                <th>Game</th>
+                <th>User</th>
+                <th>Payment ID</th>
+                <th>Payment Method</th>
+                <th>Recieved Date</th>
                 <th>Status</th>
-                <th>Start Date</th>
-
                 <th>Actions</th>
             </tr>
             </tfoot>

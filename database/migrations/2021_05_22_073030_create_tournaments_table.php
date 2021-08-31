@@ -20,6 +20,7 @@ class CreateTournamentsTable extends Migration
             $table->string('name');
             $table->string('start_date');
             $table->string('duration');
+            $table->string('entry_fee');
             $table->string('admin_percent');
             $table->string('w1_percent');
             $table->string('w2_percent');

@@ -101,6 +101,19 @@
                             <div class="row">
 
 
+                                <div class="col-md-4">
+                                    <label >
+                                        Entry Fee
+                                    </label>
+                                    <br>
+                                    <input  required class="form-control" value="{{$tournament->entry_fee}}" name="entry_fee" type="number">
+
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+
+
 
                                 <div class="col-md-12 ">
                                     <button class="btn btn-primary form-control" type="submit">Update</button>

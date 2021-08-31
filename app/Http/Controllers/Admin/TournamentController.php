@@ -7,6 +7,7 @@ use App\Models\gameuser;
 use App\Models\listeduser;
 use App\Models\lottery;
 use App\Models\tournament;
+use App\Models\tournamentrequest;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -56,6 +57,7 @@ class TournamentController extends Controller
         $tournament->w1_percent=$request->w1_percent;
         $tournament->w2_percent=$request->w2_percent;
         $tournament->w3_percent=$request->w3_percent;
+        $tournament->entry_fee=$request->entry_fee;
         if($tournament->save())
         {
             Session::put('success-msg','Tournament Successfully Added');
@@ -124,6 +126,7 @@ class TournamentController extends Controller
         $tournament->w1_percent=$request->w1_percent;
         $tournament->w2_percent=$request->w2_percent;
         $tournament->w3_percent=$request->w3_percent;
+        $tournament->entry_fee=$request->entry_fee;
         if($tournament->save())
         {
             Session::put('success-msg',"Tournament Successfully Updated");
@@ -135,26 +138,45 @@ class TournamentController extends Controller
         $tournaments=tournament::where('user_id',Auth::user()->id)->with('user')->get();
         return view('admin.tournament.all')->with('tournaments',$tournaments);
     }
+    public function requests(Request $request,$id)
+    {
+        $query  =tournamentrequest::with('user');
+        if(isset($_GET['rejected']) && $_GET['rejected']=='1')
+        {
+            $query  =$query->where('status','0');
+        }
+        if(isset($_GET['approved']) && $_GET['approved']=='1')
+        {
+            $query  =$query->where('status','1');
+        }
+        $query=$query->get();
+
+
+
+
+        return view('admin.tournament.requests')->with(['list'=>$query,'id'=>$id]);
+    }
     public function start(Request $request,$id)
     {
-      $t=tournament::find($id);
-      if(Carbon::parse($t->start_date)->format('Y M d')<Carbon::now()->format('Y M d'))
-      {
+        $t=tournament::find($id);
+        if(Carbon::parse($t->start_date)->format('Y M d')<Carbon::now()->format('Y M d'))
+        {
 
-          Session::put('error-msg',"Sorry You cannot start this before the Starting Date");
+            Session::put('error-msg',"Sorry You cannot start this before the Starting Date");
 
-      }
-      else
-      {
-          $t->status='1';
-          if($t->save())
-          {
-              Session::put('success-msg',"Tournament Successfully Started");
-          }
-      }
+        }
+        else
+        {
+            $t->status='1';
+            if($t->save())
+            {
+                Session::put('success-msg',"Tournament Successfully Started");
+            }
+        }
 
-      return \redirect(route('admin.tournament.getAll'));
+        return \redirect(route('admin.tournament.getAll'));
     }
+
     public function pause(Request $request,$id)
     {
         $t=tournament::find($id);
@@ -177,5 +199,25 @@ class TournamentController extends Controller
             Session::put('success-msg',"Tournament Successfully Stoped");
         }
         return \redirect(route('admin.tournament.getAll'));
+    }
+    public function requestReject(Request $request,$id)
+    {
+     $r=tournamentrequest::find($id);
+     $r->status='0';
+     if($r->save())
+     {
+         Session::put('success-msg',"Request Successfully Rejected");
+     }
+        return \redirect()->back();
+    }
+    public function requestApprove(Request $request,$id)
+    {
+        $r=tournamentrequest::find($id);
+        $r->status='1';
+        if($r->save())
+        {
+            Session::put('success-msg',"Request Successfully Approved");
+        }
+        return \redirect()->back();
     }
 }

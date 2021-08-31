@@ -66,6 +66,7 @@
                         </label>
                         <br>
                         <input  required class="form-control" value="{{old('admin_percent')}}" name="admin_percent" type="number">
+
                     </div>
                 </div>
 <br>
@@ -92,6 +93,19 @@
                         </label>
                         <br>
                         <input  required class="form-control" value="{{old('w3_percent')}}"  name="w3_percent" type="number">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+
+
+                    <div class="col-md-4">
+                        <label >
+                            Entry Fee
+                        </label>
+                        <br>
+                        <input  required class="form-control" value="{{old('admin_percent')}}" name="entry_fee" type="number">
+
                     </div>
                 </div>
                 <br>
