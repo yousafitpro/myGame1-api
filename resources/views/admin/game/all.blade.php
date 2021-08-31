@@ -36,7 +36,7 @@
 {{--                            <li><a href="{{route('admin.user.gameusers.getAllGamers',$game->id)}}">Add New Gamer</a></li>--}}
 
                         @if(Auth::user()->type=='supper-admin')
-                            <li><a href="#" data-toggle="modal" data-target="#deleteModel">Delete</a></li>
+{{--                            <li><a href="#" data-toggle="modal" data-target="#deleteModel">Delete</a></li>--}}
                             @endif
 
                             @if(Auth::user()->type=='supper-admin')
