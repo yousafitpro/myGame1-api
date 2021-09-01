@@ -152,8 +152,8 @@ class TournamentController extends Controller
         {
             $query  =$query->where('status','1');
         }
-        $query=$query->get();
-
+        $query=$query->with('pmethod')->get();
+//dd($query);
 
 
 

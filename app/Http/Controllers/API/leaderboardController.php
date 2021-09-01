@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Validator;
 
 class leaderboardController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api')->except(['leaderboard']);
+    }
     public function send_time(Request $request)
     {
         if(!tournament::where('id',$request->tournament_id)->exists())
@@ -25,7 +29,7 @@ class leaderboardController extends Controller
 //        }
           $obj=new listeduser();
           $obj->time=$request->time;
-          $obj->tournament_id=$request->game_id;
+          $obj->tournament_id=$request->tournament_id;
           $obj->save();
           return response()->json(['message'=>"Time Successfully Saved"],200);
 
@@ -42,8 +46,21 @@ class leaderboardController extends Controller
         $endDate=Carbon::parse($t->start_date)->addDays($t->duration);
         $users=listeduser::where('tournament_id',$request->tournament_id)->orderBy('time','ASC')->with('user')->get();
         $winners=listeduser::where('tournament_id',$request->tournament_id)->orderBy('time','ASC')->with('user')->get();
-        $winners=$winners->unique('user_id');
-        return response()->json(['users'=>$users,'game_id'=>$request->game_id,'tournament'=>$t,'endDate'=>$endDate,'winners'=>$winners],200);
+        $stack = array();
+       $i=0;
+        foreach($winners->unique('user_id') as $user){
+            array_push($stack, $user);
+            $i++;
+            if($i==3)
+            {
+
+                break;
+            }
+        }
+        $winners=$stack;
+
+
+        return response()->json(['users'=>$users,'winners'=>$winners,'game_id'=>$request->game_id,'tournament'=>$t,'endDate'=>$endDate],200);
 
     }
 }

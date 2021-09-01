@@ -52,3 +52,5 @@ include('webIncludes/leaderboard.php');
 include ("webIncludes/listeduser.php");
 // app
 include ("webIncludes/appConfig.php");
+// app
+include ("webIncludes/paymentMethods.php");

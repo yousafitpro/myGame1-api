@@ -36,7 +36,7 @@
                     <br> <label style="color:darkgoldenrod; font-weight: bold">Phone:{{$item->user->phone}}</label>
                 </td>
                 <td>{{$item->payment_id}}</td>
-                <td>{{$item->paymentmethod_id}}</td>
+                <td>{{$item->pmethod->title}}</td>
                 <td>{{\Carbon\Carbon::parse($item->created_at)->diffForHumans()}}<br>({{$item->created_at}})</td>
                 <td>
                     @if($item->status=='1')

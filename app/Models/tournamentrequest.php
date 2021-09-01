@@ -21,4 +21,8 @@ class tournamentrequest extends Model
     {
         return $this->hasOne(User::class,'id', 'user_id');
     }
+    public function pmethod()
+    {
+        return $this->hasOne(paymentMethod::class,'id', 'paymentmethod_id');
+    }
 }

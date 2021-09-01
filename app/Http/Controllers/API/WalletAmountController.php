@@ -23,13 +23,14 @@ class WalletAmountController extends Controller
         $score=new wallet_amount();
         $score->amount=$request->amount;
         $score->save();
-        $total=wallet_amount::where("user_id",Auth::user()->id)->get()->sum('amount');
+        $total=wallet_amount::where("user_id",auth('api')->user()->id)->get()->sum('amount');
         return response()->json(['message'=>"Successfully Updated",'amount'=>$request->amount,'total_amount'=>$total],200);
     }
     public function get_wallet(Request $request)
     {
-        $requests=wallet_amount::where('user_id',Auth::user()->id)->get();
-        $ws=wallet_amount::where('user_id',Auth::user()->id)->get();
+
+        $requests=wallet_amount::where('user_id',auth('api')->user()->id)->get();
+        $ws=wallet_amount::where('user_id',auth('api')->user()->id)->get();
 
         $total=0;
 
@@ -78,7 +79,7 @@ class WalletAmountController extends Controller
 //        }
         $r=wallet_amount::find($wallet_amount_id);
          $wr=new withdrawalrequest();
-        $wr->user_id=Auth::user()->id;
+        $wr->user_id=auth('api')->user()->id;
         $wr->wallet_amount_id=$wallet_amount_id;
 
          $wr->amount=$r->amount;
@@ -91,7 +92,7 @@ class WalletAmountController extends Controller
     public function withdrawl_requests()
     {
 
-        $wr=withdrawalrequest::where('user_id',Auth::user()->id)->get();
+        $wr=withdrawalrequest::where('user_id',auth('api')->user()->id)->get();
 
             return response()->json(['data',$wr],200);
 
@@ -100,7 +101,7 @@ class WalletAmountController extends Controller
     public function withdrawl_requests_histories()
     {
 
-        $wr=withdrawalhistory::where('user_id',Auth::user()->id)->get();
+        $wr=withdrawalhistory::where('user_id',auth('api')->user()->id)->get();
 
         return response()->json(['data',$wr],200);
 

@@ -40,6 +40,9 @@
                     <a href="{{route('admin.app.getAll')}}"><i class="fa fa-ticket"></i> <span class="nav-label">Apps</span></a>
                 </li>
                 <li>
+                    <a href="{{route('admin.paymentMethods.getAll')}}"><i class="fa fa-ticket"></i> <span class="nav-label">Payment Methods</span></a>
+                </li>
+                <li>
                     <a href="{{route('admin.post.getAll')}}"><i class="fa fa-pencil-square-o"></i> <span class="nav-label">Manage Posts</span></a>
                 </li>
                 <li >
