@@ -143,7 +143,7 @@ class TournamentController extends Controller
     }
     public function requests(Request $request,$id)
     {
-        $query  =tournamentrequest::with('user');
+        $query  =tournamentrequest::with('user')->where('tournament_id',$id);
         if(isset($_GET['rejected']) && $_GET['rejected']=='1')
         {
             $query  =$query->where('status','0');
