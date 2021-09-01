@@ -66,6 +66,11 @@ public function paymentmethods()
 }
 public function paymentrequest(Request $request,$id)
 {
+    if(tournamentrequest::where(['paymentmethod_id'=>$request->paymentmethod_id,'payment_id'=>$request->payment_id])->exists())
+    {
+        return  response()->json(['alert'=>'This Payment ID Already Used']);
+    }
+
     if(tournamentrequest::where(['paymentmethod_id'=>$request->paymentmethod_id,'payment_id'=>$request->payment_id])->where(function ($q){
         $q->where('status','2');
         $q->orwhere('status','1');
@@ -75,13 +80,15 @@ public function paymentrequest(Request $request,$id)
     }
     if(tournamentrequest::where(['tournament_id'=>$id,'user_id'=>auth('api')->user()->id,'status'=>'2'])->exists())
     {
-        $r=tournamentrequest::where(['tournament_id'=>$id,'user_id'=>auth('api')->user()->id])->get()->last();
-        return  response()->json(['request'=>$r],409);
+        return  response()->json(['alert'=>'Your Application is in Process']);
+//        $r=tournamentrequest::where(['tournament_id'=>$id,'user_id'=>auth('api')->user()->id])->get()->last();
+//        return  response()->json(['request'=>$r],409);
     }
     if(tournamentrequest::where(['tournament_id'=>$id,'user_id'=>auth('api')->user()->id,'status'=>'1'])->exists())
     {
-        $r=tournamentrequest::where(['tournament_id'=>$id,'user_id'=>auth('api')->user()->id])->get()->last();
-        return  response()->json(['request'=>$r],409);
+        return  response()->json(['alert'=>'This Payment ID Already Used']);
+//        $r=tournamentrequest::where(['tournament_id'=>$id,'user_id'=>auth('api')->user()->id])->get()->last();
+//        return  response()->json(['request'=>$r],409);
     }
     $p=new tournamentrequest();
     $p->tournament_id=$id;
