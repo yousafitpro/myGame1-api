@@ -27,6 +27,7 @@ public function tournaments()
           $ts=tournament::where('status','!=','3')->with('game')->get();
           foreach ($ts as $t)
           {
+              $t->playing=listeduser::where('tournament_id',$t->id)->get()->count();
               $t->is_member=0;
               if(auth('api')->check())
               {
