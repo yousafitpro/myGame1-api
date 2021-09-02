@@ -10,7 +10,7 @@
             <thead>
             <tr>
                 <th>ID</th>
-                <th>user Email</th>
+                <th>user</th>
                 <th>Wallet Amount</th>
                 <th>Requested Amount</th>
                 <th>Created At</th>
@@ -23,7 +23,7 @@
             @foreach($requests as $request)
             <tr class="center">
                 <td>{{$request->id}}</td>
-                <td>{{$request->user->email}}</td>
+                <td>Email: {{$request->user->email}}<br>Phone: {{$request->user->phone}}</td>
                 <td>{{$request->wallet_amount}}</td>
                 <td>{{$request->amount}}</td>
                 <td>{{$request->created_at}}</td>
@@ -35,38 +35,64 @@
 
                         <ul class="dropdown-menu">
 
-                            <li><a href="{{route('admin.withdrawalRequest.approve',$request->id)}}">Approve</a></li>
-                            <li><a href="{{route('admin.withdrawalRequest.reject',$request->id)}}">Reject</a></li>
+                            <li  data-toggle="modal" data-target="#approveModel{{$request->id}}" ><a href="#">Approve</a></li>
+                            <li data-toggle="modal" data-target="#rejectModel{{$request->id}}"><a href="#" >Reject</a></li>
                         </ul>
                     </div>
                 </td>
             </tr>
-{{--            Delete Moel--}}
-            <div class="modal fade" id="deleteModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+{{--            Approve Modal--}}
+            <div class="modal fade" id="approveModel{{$request->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Alert</h5>
+                            <h5 class="modal-title" id="exampleModalLongTitle">Add a Note</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                           <h3>Are you want to Delete this ?</h3>
+                         <form action="{{route('admin.withdrawalRequest.approve',$request->id)}}" method="get">
+                             @csrf
+                             <textarea class="form-control" style="height: 100px;" name="note"></textarea>
+                         <br>
+                             <button type="submit" class="btn btn-primary">Approve</button>
+                         </form>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                           <a href="{{route('admin.role.deleteOne',$request->id)}}"> <button type="button" class="btn btn-primary">Yes</button></a>
-                        </div>
+
                     </div>
                 </div>
             </div>
+
+            {{--            Approve Modal--}}
+            <div class="modal fade" id="rejectModel{{$request->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Add a Note</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{route('admin.withdrawalRequest.reject',$request->id)}}" method="get">
+                                @csrf
+                                <textarea class="form-control" style="height: 100px;" name="note"></textarea>
+                                <br>
+                                <button type="submit" class="btn btn-primary">Reject</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
             @endforeach
             </tbody>
             <tfoot>
             <tr>
                 <th>ID</th>
-                <th>user Email</th>
+                <th>user</th>
                 <th>Wallet Amount</th>
                 <th>Requested Amount</th>
                 <th>Created At</th>

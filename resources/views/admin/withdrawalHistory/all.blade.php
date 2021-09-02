@@ -10,9 +10,12 @@
             <thead>
             <tr>
                 <th>ID</th>
-                <th>User Email</th>
+
+                <th>User</th>
                 <th>Requested Amount</th>
+                <th>Note</th>
                 <th>Completed At</th>
+
                 <th>Status</th>
 
             </tr>
@@ -22,8 +25,9 @@
             @foreach($requests as $history)
             <tr class="center">
                 <td>{{$history->id}}</td>
-                <th>{{$history->user->email}}</th>
+                <td>Email: {{$history->user->email}}<br>Phone: {{$history->user->phone}}</td>
                 <td>{{$history->amount}}</td>
+                <td>{{$history->note}}</td>
                 <td>{{$history->created_at}}</td>
                 <td>{{$history->status}}</td>
             </tr>
@@ -52,8 +56,9 @@
             <tfoot>
             <tr>
                 <th>ID</th>
-                <th>User Email</th>
+                <th>User </th>
                 <th>Requested Amount</th>
+                <th>Note</th>
                 <th>Completed At</th>
                 <th>Status</th>
 

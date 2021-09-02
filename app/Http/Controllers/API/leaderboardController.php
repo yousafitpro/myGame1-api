@@ -24,7 +24,7 @@ class leaderboardController extends Controller
         {
             return response()->json(['message'=>"Tournament is not Created yet for this ID"],200);
         }
-        if(!tournamentuser::where(['id'=>$request->tournament_id,'user_id'=>auth('api')->user()->id])->exists())
+        if(!tournamentuser::where(['tournament_id'=>$request->tournament_id,'user_id'=>auth('api')->user()->id])->exists())
         {
             return response()->json(['message'=>"Sorry You are not the member of this tournament"],200);
         }

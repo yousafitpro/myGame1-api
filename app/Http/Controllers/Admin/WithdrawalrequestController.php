@@ -15,17 +15,21 @@ class WithdrawalrequestController extends Controller
     public function getAll()
     {
         $requests=withdrawalrequest::where('user_id','!=',Auth::user()->id)->with('user')->get();
+
         foreach ($requests as $r)
         {
             $r->wallet_amount=wallet_amount::where('user_id',$r->user_id)->get()->sum('amount');
         }
         return view('admin.withdrawalRequest.all')->with('requests',$requests);
     }
-    public function Approve($id)
+    public function Approve(Request $request,$id)
     {
+
+
         $r=withdrawalrequest::find($id);
 
         $nr=new withdrawalhistory();
+        $nr->note=$request->note;
         $wr=wallet_amount::find($r->wallet_amount_id);
         $nr->user_id=$r->user_id;
         $nr->status="Completed";
@@ -40,12 +44,13 @@ class WithdrawalrequestController extends Controller
 
         return redirect(route('admin.withdrawalRequest.getAll'));
     }
-    public function reject($id)
+    public function reject(Request $request,$id)
     {
         $r=withdrawalrequest::find($id);
         $nr=new withdrawalhistory();
         $nr->user_id=$r->user_id;
         $nr->status="Rejected";
+        $nr->note=$request->note;
         $nr->wallet_amount_id=$r->wallet_amount_id;
         $nr->amount=$r->amount;
         if($nr->save())

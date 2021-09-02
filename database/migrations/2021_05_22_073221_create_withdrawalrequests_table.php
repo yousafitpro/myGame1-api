@@ -18,6 +18,7 @@ class CreateWithdrawalrequestsTable extends Migration
             $table->bigInteger('user_id');
             $table->bigInteger('wallet_amount_id');
             $table->string('amount');
+            $table->string('note');
             $table->string('status')->nullable()->default('Pending');
             $table->timestamps();
         });
