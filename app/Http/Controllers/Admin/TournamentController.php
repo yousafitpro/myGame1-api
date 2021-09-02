@@ -75,25 +75,25 @@ class TournamentController extends Controller
     public function deleteOne($id)
     {
         $tournament=tournament::find($id);
-        if(lottery::where('tournament_id',$tournament->id)->exists())
-        {
-            $l=lottery::where('tournament_id',$tournament->id)->first();
-            $l->delete();
-        }
-        if(game::where('id',$tournament->game_id)->exists())
-        {
-            $g=game::where('id',$tournament->game_id)->first();
-            $g->delete();
-        }
+//        if(lottery::where('tournament_id',$tournament->id)->exists())
+//        {
+//            $l=lottery::where('tournament_id',$tournament->id)->first();
+//            $l->delete();
+//        }
+//        if(game::where('id',$tournament->game_id)->exists())
+//        {
+//            $g=game::where('id',$tournament->game_id)->first();
+//            $g->delete();
+//        }
 
-        $gu=gameuser::where('game_id',$g->id);
-        $lu=listeduser::where('game_id',$g->id);
+//        $gu=gameuser::where('game_id',$g->id);
+//        $lu=listeduser::where('game_id',$g->id);
         if($tournament->delete())
         {
 
 
-            $gu->delete();
-            $lu->delete();
+//            $gu->delete();
+//            $lu->delete();
             Session::put('success-msg',"Tournament Successfully Deleted");
         }
         return redirect(route('admin.tournament.getAll'));
