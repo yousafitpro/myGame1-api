@@ -70,10 +70,9 @@ public function paymentrequest(Request $request,$id)
     $tour=tournament::find($request->paymentmethod_id);
 
     $playing=tournamentuser::where('tournament_id',$id)->get()->count();
-dd($tour->total_users);
     if($playing>=$tour->total_users)
     {
-        dd($playing);
+
         return  response()->json(['alert'=>'Players length Completed for this tournament try for other one thanks. ']);
     }
     if(tournamentrequest::where(['paymentmethod_id'=>$request->paymentmethod_id,'payment_id'=>$request->payment_id])->exists())
