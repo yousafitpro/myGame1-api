@@ -67,10 +67,18 @@ public function paymentmethods()
 }
 public function paymentrequest(Request $request,$id)
 {
+    $tour=tournament::find($request->paymentmethod_id);
+
+    $playing=tournamentuser::where('tournament_id',$request->paymentmethod_id)->get()->count();
+    if($playing>=$tour->total_users)
+    {
+        return  response()->json(['alert'=>'Players length Completed for this tournament try for other one thanks. ']);
+    }
     if(tournamentrequest::where(['paymentmethod_id'=>$request->paymentmethod_id,'payment_id'=>$request->payment_id])->exists())
     {
         return  response()->json(['alert'=>'This Payment ID Already Used']);
     }
+
 
     if(tournamentrequest::where(['paymentmethod_id'=>$request->paymentmethod_id,'payment_id'=>$request->payment_id])->where(function ($q){
         $q->where('status','2');

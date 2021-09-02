@@ -104,13 +104,13 @@ class TournamentController extends Controller
             'name'=>'required',
             'duration'=>'required',
             'game_id'=>'required|exists:games,id',
-            'start_date'=>'required|after_or_equal:now',
+            'start_date'=>'required',
             'collected_amount'=>'required'
         ]);
 
         if ($validator->fails())
         {
-            return Redirect::route('admin.tournament.add')->withErrors($validator)->withInput();
+            redirect()->back()->withErrors($validator)->withInput();
         }
         $total=$request->admin_percent+$request->w1_percent+$request->w2_percent+$request->w3_percent;
         if($total!=100)
