@@ -26,12 +26,12 @@ class webConfigServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if(webconfig::all()->count()==0)
-        {
-            $webConfig=new webconfig();
-            $webConfig->save();
-        }
-        $config=webconfig::first();
-        View::share('webConfig', $config);
+//        if(webconfig::all()->count()==0)
+//        {
+//            $webConfig=new webconfig();
+//            $webConfig->save();
+//        }
+//        $config=webconfig::first();
+//        View::share('webConfig', $config);
     }
 }
