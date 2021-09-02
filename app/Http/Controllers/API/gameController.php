@@ -70,6 +70,7 @@ public function paymentrequest(Request $request,$id)
     $tour=tournament::find($request->paymentmethod_id);
 
     $playing=tournamentuser::where('tournament_id',$id)->get()->count();
+    dd($id);
     if($playing>=$tour->total_users)
     {
 
