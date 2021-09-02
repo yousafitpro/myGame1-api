@@ -17,7 +17,10 @@
             <tr>
                 <th>Name</th>
                 <th>Game</th>
+                <th>Old Requests</th>
+                <th>New Requests</th>
                 <th>Status</th>
+
                 <th>Start Date</th>
                 <th>Actions</th>
             </tr>
@@ -28,6 +31,8 @@
             <tr class="center">
                 <td>{{$tournament->name}}</td>
                 <td>{{$tournament->game->name}}</td>
+                <td>{{$tournament->old_requests}}</td>
+                <td>{{$tournament->new_requests}}</td>
                 @if($tournament->status=='1')
                     <td style="color: green; font-weight: bold">Started</td>
                 @endif
@@ -99,6 +104,8 @@
             <tr>
                 <th>Name</th>
                 <th>Game</th>
+                <th>Old Requests</th>
+                <th>New Requests</th>
                 <th>Status</th>
                 <th>Start Date</th>
 

@@ -139,6 +139,11 @@ class TournamentController extends Controller
     public function getAll()
     {
         $tournaments=tournament::where('user_id',Auth::user()->id)->with('user')->get();
+        foreach ($tournaments as $t)
+        {
+            $t->new_requests=tournamentrequest::where(['tournament_id'=>$t->id,'status'=>'2'])->get()->count();
+            $t->old_requests=tournamentrequest::where(['tournament_id'=>$t->id,'status'=>'1'])->get()->count();
+        }
         return view('admin.tournament.all')->with('tournaments',$tournaments);
     }
     public function requests(Request $request,$id)
