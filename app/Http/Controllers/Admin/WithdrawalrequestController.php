@@ -30,7 +30,7 @@ class WithdrawalrequestController extends Controller
 
         $nr=new withdrawalhistory();
         $nr->note=$request->note;
-        $wr=wallet_amount::find($r->wallet_amount_id);
+        $wr=wallet_amount::where($r->wallet_amount_id);
         $nr->user_id=$r->user_id;
         $nr->status="Completed";
         $nr->wallet_amount_id=$r->wallet_amount_id;
