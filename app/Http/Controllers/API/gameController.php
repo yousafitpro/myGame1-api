@@ -24,7 +24,7 @@ class gameController extends Controller
     }
 public function tournaments()
 {
-          $ts=tournament::where('status','!=','3')->get();
+          $ts=tournament::where('status','!=','3')->with('game')->get();
           foreach ($ts as $t)
           {
               $t->is_member=0;

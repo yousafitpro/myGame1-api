@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\gameuser;
 use App\Models\listeduser;
 use App\Models\tournament;
+use App\Models\tournamentuser;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -23,7 +24,7 @@ class leaderboardController extends Controller
         {
             return response()->json(['message'=>"Tournament is not Created yet for this ID"],200);
         }
-        if(!tournament::where(['id'=>$request->tournament_id,'user_id'=>auth('api')->user()->id])->exists())
+        if(!tournamentuser::where(['id'=>$request->tournament_id,'user_id'=>auth('api')->user()->id])->exists())
         {
             return response()->json(['message'=>"Sorry You are not the member of this tournament"],200);
         }
