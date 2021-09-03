@@ -13,6 +13,7 @@ class generalController extends Controller
 
     public function __construct()
     {
+        $this->middleware('auth:api');
 //        $this->middleware('auth:api')->except(['tournaments','appupdateinfo','paymentmethods']);
     }
 public function updateProfile(Request $request)

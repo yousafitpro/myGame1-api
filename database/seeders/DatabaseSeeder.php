@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         $user->status="1";
         $user->address="here will be the address";
         $user->email="admin@gmail.com";
-        $user->password=bcrypt('12');
+        $user->password=bcrypt('Usafpk@sondayA123');
         $user->profile_image="1.png";
         $user->save();
 
