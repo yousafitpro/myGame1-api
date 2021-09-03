@@ -36,11 +36,81 @@
                                     <i class="fa fa-cogs" data-toggle="dropdown"></i>
 
                                     <ul class="dropdown-menu">
+                                        <li><a href="#" data-toggle="modal" data-target="#editModel{{$item->id}}">Edit/View</a></li>
                                         <li><a href="#" data-toggle="modal" data-target="#deleteModel">Delete</a></li>
                                     </ul>
                                 </div>
                             </td>
                         </tr>
+                        <div class="modal fade" id="editModel{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Add New App</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+
+                                    <form action="{{route('admin.app.update',$item->id)}}" method="post">
+                                        @csrf
+
+
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label >
+                                                        Name
+                                                    </label>
+                                                    <br>
+                                                    <input  required class="form-control" name="app_name" value="{{$item->app_name}}" type="text">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label >
+                                                        Version
+                                                    </label>
+                                                    <br>
+                                                    <input  required class="form-control" value="{{$item->version}}" name="version" type="text">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label >
+                                                        App ID
+                                                    </label>
+                                                    <br>
+                                                    <input  required class="form-control" value="{{$item->app_id}}" name="app_id" type="text">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label >
+                                                        Link
+                                                    </label>
+                                                    <br>
+                                                    <input  required class="form-control" name="app_link" value="{{$item->app_link}}" type="text">
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-12 ">
+                                                    <button class="btn btn-primary float-right" type="submit">Update App</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </form>
+
+
+                                </div>
+                            </div>
+                        </div>
+
                         {{--            Delete Moel--}}
                         <div class="modal fade" id="deleteModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">

@@ -19,6 +19,9 @@
                 <th>Game</th>
                 <th>Old Requests</th>
                 <th>New Requests</th>
+                <th>Collected Amount</th>
+                <th>Total Users</th>
+                <th>Entry Fee</th>
                 <th>Status</th>
 
                 <th>Start Date</th>
@@ -33,6 +36,9 @@
                 <td>{{$tournament->game->name}}</td>
                 <td>{{$tournament->old_requests}}</td>
                 <td>{{$tournament->new_requests}}</td>
+                <td>{{$tournament->collected_amount}}</td>
+                <td>{{$tournament->total_users}}</td>
+                <td>{{$tournament->entry_fee}}</td>
                 @if($tournament->status=='1')
                     <td style="color: green; font-weight: bold">Started</td>
                 @endif
@@ -106,6 +112,9 @@
                 <th>Game</th>
                 <th>Old Requests</th>
                 <th>New Requests</th>
+                <th>Collected Amount</th>
+                <th>Total Users</th>
+                <th>Entry Fee</th>
                 <th>Status</th>
                 <th>Start Date</th>
 

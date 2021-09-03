@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\appConfig;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -19,6 +20,20 @@ class AppConfigController extends Controller
         if($r->save())
         {
             Session::put('success-msg',"App Successfully Added");
+        }
+
+        return redirect(route('admin.app.getAll'));
+    }
+    public function update(Request $request,$id)
+    {
+        $r=appConfig::find($id);
+        $r->app_name=$request->app_name;
+        $r->app_version=$request->version;
+        $r->app_id=$request->app_id;
+        $r->app_link=$request->app_link;
+        if($r->save())
+        {
+            Session::put('success-msg',"App Successfully Updated");
         }
 
         return redirect(route('admin.app.getAll'));
