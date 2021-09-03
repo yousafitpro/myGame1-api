@@ -73,7 +73,7 @@
                                                         Version
                                                     </label>
                                                     <br>
-                                                    <input  required class="form-control" value="{{$item->version}}" name="version" type="text">
+                                                    <input  required class="form-control" value="{{$item->app_version}}" name="version" type="text">
                                                 </div>
                                             </div>
                                             <br>
