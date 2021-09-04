@@ -167,20 +167,20 @@ class TournamentController extends Controller
     public function start(Request $request,$id)
     {
         $t=tournament::find($id);
-        if(Carbon::parse($t->start_date)->format('Y M d')<Carbon::now()->format('Y M d'))
-        {
-
-            Session::put('error-msg',"Sorry You cannot start this before the Starting Date");
-
-        }
-        else
-        {
+//        if(Carbon::parse($t->start_date)->format('Y M d')<Carbon::now()->format('Y M d'))
+//        {
+//
+//            Session::put('error-msg',"Sorry You cannot start this before the Starting Date");
+//
+//        }
+//        else
+//        {
             $t->status='1';
             if($t->save())
             {
                 Session::put('success-msg',"Tournament Successfully Started");
             }
-        }
+//        }
 
         return \redirect(route('admin.tournament.getAll'));
     }
