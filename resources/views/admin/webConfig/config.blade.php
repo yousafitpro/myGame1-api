@@ -57,12 +57,7 @@
                                     <br>
                                     <select name="is_promotion" required>
 
-                                        @if($config->is_promotion=='0')
-                                            <option value="0">Unctive</option>
-                                        @endif
-                                        @if($config->is_promotion=='1')
-                                            <option value="1">Active</option>
-                                        @endif
+
                                         <option value="0">Active</option>
                                         <option value="1">Unactive</option>
                                     </select>
