@@ -9,6 +9,8 @@ use App\Models\lottery;
 use App\Models\tournament;
 use App\Models\tournamentrequest;
 use App\Models\tournamentuser;
+use App\Models\User;
+use App\Models\wallet_amount;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -241,6 +243,22 @@ class TournamentController extends Controller
         {
             if(!tournamentuser::where('user_id',$r->user_id)->where('tournament_id',$r->tournament_id)->exists())
             {
+                $user=User::find($r->user_id);
+                if($user->referer_id!="ok")
+                {
+                    if(User::where('email',$user->referer_id)->exists())
+                    {
+                        $user2=User::where('email',$user->referer_id)->first();
+                        $user->referer_id="ok";
+                        $wa=new wallet_amount();
+                        $wa->amount="20";
+                        $wa->user_id=$user2->id;
+                        $user->save();
+                        $wa->save();
+                    }
+
+
+                }
                 $tu->save();
             }
             Session::put('success-msg',"Request Successfully Approved");

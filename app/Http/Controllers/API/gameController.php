@@ -105,22 +105,7 @@ public function paymentrequest(Request $request,$id)
     }
     $p=new tournamentrequest();
     $p->tournament_id=$id;
-     $user=User::find(auth('api')->user()->id);
-     if($user->referer_id!="ok")
-     {
-         if(User::where('email',$user->referer_id)->exists())
-         {
-             $user2=User::where('email',$user->referer_id)->first();
-             $user->referer_id="ok";
-             $wa=new wallet_amount();
-             $wa->amount="20";
-             $wa->user_id=$user2->id;
-             $user->save();
-             $wa->save();
-         }
 
-
-     }
     $p->payment_id=$request->payment_id;
     $p->paymentmethod_id=$request->paymentmethod_id;
     $p->user_id=auth('api')->user()->id;
