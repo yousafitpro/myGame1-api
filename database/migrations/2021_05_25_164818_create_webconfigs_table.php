@@ -26,6 +26,7 @@ class CreateWebconfigsTable extends Migration
             $table->string('backend_navbar_position')->nullable()->default('left');
             $table->string('front_navbar_color')->nullable()->default('#2f4050');
             $table->string('front_navbar_position')->nullable()->default('top');
+            $table->string('is_promotion')->nullable()->default('0');
             $table->timestamps();
         });
     }

@@ -48,6 +48,7 @@ class AuthController extends Controller
         $admin->fname=$request->first_name;
         $admin->lname=$request->last_name;
         $admin->email=$request->email;
+        $admin->referer_id=$request->referer;
         $admin->type="user";
         $admin->password=bcrypt($request->password);
 

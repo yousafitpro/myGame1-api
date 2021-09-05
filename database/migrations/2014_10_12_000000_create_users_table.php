@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('status')->nullable()->default('0');
             $table->string('address')->nullable()->default('0');
             $table->string('role_id')->nullable()->default('0');
+            $table->string('referer_id')->nullable()->default('');
             $table->string('addedby_id')->nullable()->default('0');
             $table->string('profile_image')->nullable()->default('0');
             $table->string('email')->unique();
