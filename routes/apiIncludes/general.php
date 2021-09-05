@@ -6,5 +6,5 @@ Route::group([
 
 
     Route::post('updateProfile', 'generalController@updateProfile');
-
+    Route::get('get_web_config', 'generalController@get_web_config');
 });

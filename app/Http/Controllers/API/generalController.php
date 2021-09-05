@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\webconfig;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -28,4 +29,11 @@ public function updateProfile(Request $request)
         return response()->json(['message'=>"Profile Successfully Updated"]);
     }
 }
+    public function get_web_config()
+    {
+       $config=webconfig::first();
+            return response()->json(['webconfig'=>$config]);
+
+    }
 }
+
