@@ -52,7 +52,7 @@
 
                                 <br>
                                     <label >
-                                        Company Phone
+                                        Is Promotion
                                     </label>
                                     <br>
                                     <select name="is_promotion" required>
