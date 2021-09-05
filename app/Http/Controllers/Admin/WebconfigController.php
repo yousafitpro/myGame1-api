@@ -48,6 +48,7 @@ class WebconfigController extends Controller
         $webConfig->company_phone=$request->company_phone;
         $webConfig->company_address=$request->company_address;
         $webConfig->locale=$request->mylocale;
+        $webConfig->is_promotion=$request->is_promotion;
         $webConfig->front_navbar_color=$request->front_navbar_color;
         $webConfig->front_navbar_position=$request->front_navbar_position;
         $webConfig->backend_navbar_color=$request->backend_navbar_color;

@@ -49,6 +49,19 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <input  required class="form-control" name="company_email" value="{{$config->company_email}}">
+
+                                <br>
+                                    <label >
+                                        Company Phone
+                                    </label>
+                                    <br>
+                                    <select name="is_promotion" required>
+
+
+                                        <option value="0">Active</option>
+                                        <option value="1">Unactive</option>
+                                    </select>
+
                                 </div>
                                 <div class="col-md-6">
                                     <input  required class="form-control" name="company_phone" value="{{$config->company_phone}}">

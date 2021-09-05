@@ -11,6 +11,7 @@ use App\Models\tournamentrequest;
 use App\Models\tournamentuser;
 use App\Models\User;
 use App\Models\wallet_amount;
+use App\Models\webconfig;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -244,7 +245,8 @@ class TournamentController extends Controller
             if(!tournamentuser::where('user_id',$r->user_id)->where('tournament_id',$r->tournament_id)->exists())
             {
                 $user=User::find($r->user_id);
-                if($user->referer_id!="ok")
+                $config=webconfig::first();
+                if($user->referer_id!="ok" && $config->is_promotion=='1')
                 {
                     if(User::where('email',$user->referer_id)->exists())
                     {
